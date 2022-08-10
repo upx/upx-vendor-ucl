@@ -106,6 +106,7 @@ static ucl_bool ptr_check(void)
     for (i = 0; i < (int) sizeof(x); i++)
         x[i] = UCL_BYTE(i);
 
+    memset(_wrkmem,0xff,sizeof(_wrkmem));
     wrkmem = UCL_PTR_ALIGN_UP((ucl_bytep)_wrkmem, sizeof(ucl_align_t));
 
     dict = (ucl_bytepp) (ucl_voidp) wrkmem;

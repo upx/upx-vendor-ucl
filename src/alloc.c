@@ -49,7 +49,7 @@ UCL_PRIVATE(ucl_voidp)
 ucl_malloc_internal(ucl_uint size)
 {
     ucl_voidp p = NULL;
-    if (size < ~(size_t)0)
+    if (size < ((~(size_t)0) & (~(ucl_uint)0)))
         p = (ucl_voidp) malloc((size_t) size);
     return p;
 }

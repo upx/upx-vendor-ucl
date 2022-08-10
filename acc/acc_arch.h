@@ -70,9 +70,9 @@
 #  define ACC_INFO_ARCH             "ia32"
 #elif (ACC_OS_DOS32 || ACC_OS_OS2)
 #  error "missing define for CPU architecture"
-#elif (ACC_OS_WIN32)
-#  error "missing define for CPU architecture"
-#elif (ACC_OS_WIN64)
+//#elif (ACC_OS_WIN32)
+//#  error "missing define for CPU architecture"
+//#elif (ACC_OS_WIN64)
 /* #  error "missing define for CPU architecture" */
 #elif (ACC_OS_TOS) || defined(__m68000__)
 #  define ACC_ARCH_M68K             1

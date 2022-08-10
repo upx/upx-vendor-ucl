@@ -87,7 +87,11 @@
 
 /* This can be put into a header file but may get ignored by some compilers. */
 #if !defined(ACC_COMPILE_TIME_ASSERT_HEADER)
-#  if (ACC_CC_AZTECC || ACC_CC_ZORTECHC)
+#  if defined(__cplusplus) && (__cplusplus+0 >= 201103L)
+#    define ACC_COMPILE_TIME_ASSERT_HEADER(e)  static_assert(e, #e);
+#  elif defined(__STDC_VERSION__) && (__STDC_VERSION__+0 >= 201112L)
+#    define ACC_COMPILE_TIME_ASSERT_HEADER(e)  _Static_assert(e, #e);
+#  elif (ACC_CC_AZTECC || ACC_CC_ZORTECHC)
 #    define ACC_COMPILE_TIME_ASSERT_HEADER(e)  extern int __acc_cta[1-!(e)];
 #  elif (ACC_CC_DMC || ACC_CC_SYMANTECC)
 #    define ACC_COMPILE_TIME_ASSERT_HEADER(e)  extern int __acc_cta[1u-2*!(e)];
@@ -100,7 +104,11 @@
 
 /* This must appear within a function body. */
 #if !defined(ACC_COMPILE_TIME_ASSERT)
-#  if (ACC_CC_AZTECC)
+#  if defined(__cplusplus) && (__cplusplus+0 >= 201103L)
+#    define ACC_COMPILE_TIME_ASSERT(e)  {static_assert(e, #e);}
+#  elif defined(__STDC_VERSION__) && (__STDC_VERSION__+0 >= 201112L)
+#    define ACC_COMPILE_TIME_ASSERT(e)  {_Static_assert(e, #e);}
+#  elif (ACC_CC_AZTECC)
 #    define ACC_COMPILE_TIME_ASSERT(e)  {typedef int __acc_cta_t[1-!(e)];}
 #  elif (ACC_CC_DMC || ACC_CC_PACIFICC || ACC_CC_SYMANTECC || ACC_CC_ZORTECHC)
 #    define ACC_COMPILE_TIME_ASSERT(e)  switch(0) case 1:case !(e):break;
