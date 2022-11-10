@@ -55,7 +55,10 @@ static const char __ucl_copyright[] =
     "<markus@oberhumer.com>\n"
     "http://www.oberhumer.com $\n\n"
     "$Id: UCL version: v" UCL_VERSION_STRING ", " UCL_VERSION_DATE " $\n"
-    "$Built: " __DATE__ " " __TIME__ " $\n"
+    //"$Built: " __DATE__ " " __TIME__ " $\n"
+#if defined(UCL_CONFIG_BUILD_DATE)
+    "$Built: " UCL_CONFIG_BUILD_DATE " $\n"
+#endif
     "$Info: " ACC_INFO_OS
 #if defined(ACC_INFO_OS_POSIX)
     "/" ACC_INFO_OS_POSIX

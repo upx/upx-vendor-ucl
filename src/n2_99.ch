@@ -501,7 +501,7 @@ ucl_nrv_99_compress        ( const ucl_bytep in, ucl_uint in_len,
             lit++;
             s->max_chain = sc->max_chain;
             r = find_match(c,s,1,0);
-            assert(r == 0);
+            assert(r == 0); ACC_UNUSED(r);
             continue;
         }
 
@@ -537,7 +537,7 @@ ucl_nrv_99_compress        ( const ucl_bytep in, ucl_uint in_len,
             r = find_match(c,s,1,0);
             ahead++;
 
-            assert(r == 0);
+            assert(r == 0); ACC_UNUSED(r);
             assert(c->look > 0);
             assert(ii + lit + ahead == c->bp);
 
@@ -588,7 +588,7 @@ ucl_nrv_99_compress        ( const ucl_bytep in, ucl_uint in_len,
         code_match(c,m_len,m_off);
         s->max_chain = sc->max_chain;
         r = find_match(c,s,m_len,1+ahead);
-        assert(r == 0);
+        assert(r == 0); ACC_UNUSED(r);
 
 lazy_match_done: ;
     }

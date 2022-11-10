@@ -330,7 +330,7 @@ int swd_init(ucl_swd_t *s, const ucl_bytep dict, ucl_uint dict_len)
     else
         s->rp += s->b_size - s->node_count;
 
-#if defined(__UCL_CHECKER)
+#if defined(__UCL_CHECKER) || 1
     /* initialize memory for the first few HEAD3 (if s->ip is not far
      * enough ahead to do this job for us). The value doesn't matter. */
     if (s->look < 3)
@@ -377,7 +377,7 @@ void swd_getbyte(ucl_swd_t *s)
     {
         if (s->look > 0)
             --s->look;
-#if defined(__UCL_CHECKER)
+#if defined(__UCL_CHECKER) || 1
         /* initialize memory - value doesn't matter */
         s->b[s->ip] = 0;
         if (s->ip < s->f)

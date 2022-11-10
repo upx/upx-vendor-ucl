@@ -106,6 +106,7 @@ static ucl_bool ptr_check(void)
     for (i = 0; i < (int) sizeof(x); i++)
         x[i] = UCL_BYTE(i);
 
+    memset(_wrkmem,0xff,sizeof(_wrkmem));
     wrkmem = UCL_PTR_ALIGN_UP((ucl_bytep)_wrkmem, sizeof(ucl_align_t));
 
     dict = (ucl_bytepp) (ucl_voidp) wrkmem;
@@ -212,7 +213,7 @@ _ucl_config_check(void)
 #endif
 
     /* check that unaligned memory access works as expected */
-#if defined(UA_GET2) || defined(UA_SET2)
+#if defined(UA_GET2)
     if (r == 1)
     {
         unsigned short b[4];
@@ -230,10 +231,11 @@ _ucl_config_check(void)
         r &= __ucl_assert(b[2] == 0x0203);
         r &= __ucl_assert(b[3] == 0x0304);
 #  endif
+        ACC_UNUSED(b);
     }
 #endif
 
-#if defined(UA_GET4) || defined(UA_SET4)
+#if defined(UA_GET4)
     if (r == 1)
     {
         ucl_uint32 a[4];
@@ -251,6 +253,7 @@ _ucl_config_check(void)
         r &= __ucl_assert(a[2] == UCL_UINT32_C(0x02030405));
         r &= __ucl_assert(a[3] == UCL_UINT32_C(0x03040506));
 #  endif
+        ACC_UNUSED(a);
     }
 #endif
 

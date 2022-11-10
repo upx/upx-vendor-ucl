@@ -106,7 +106,7 @@
             m_len += 2;
         }
         m_len += (m_off > 0x500);
-        fail(olen + m_len > oend, UCL_E_OUTPUT_OVERRUN);
+        fail(olen + m_len >= oend, UCL_E_OUTPUT_OVERRUN);
         fail(m_off > olen, UCL_E_LOOKBEHIND_OVERRUN);
 #ifdef TEST_OVERLAP
         olen += m_len + 1;

@@ -172,7 +172,7 @@
     ACCCHK_ASSERT(sizeof(ptrdiff_t) >= sizeof(int))
     ACCCHK_ASSERT(sizeof(ptrdiff_t) >= sizeof(size_t))
 #if !defined(ACC_BROKEN_SIZEOF)
-    ACCCHK_ASSERT(sizeof(ptrdiff_t) == sizeof((char*)0 - (char*)0))
+    //ACCCHK_ASSERT(sizeof(ptrdiff_t) == sizeof((char*)0 - (char*)0))
 # if (ACC_HAVE_MM_HUGE_PTR)
     ACCCHK_ASSERT(4 == sizeof((char __huge*)0 - (char __huge*)0))
 # endif
@@ -204,11 +204,11 @@
 #if (ACC_CC_TURBOC && (__TURBOC__ < 0x0150))
     /* TC 1.0 bug, probably due to ACC_BROKEN_INTEGRAL_PROMOTION ?? */
 #else
-    ACCCHK_ASSERT((1   << (8*SIZEOF_INT-1)) < 0)
+    //ACCCHK_ASSERT((1   << (8*SIZEOF_INT-1)) < 0)
 #endif
     ACCCHK_ASSERT((1u  << (8*SIZEOF_INT-1)) > 0)
 
-    ACCCHK_ASSERT((1l  << (8*SIZEOF_LONG-1)) < 0)
+    //ACCCHK_ASSERT((1l  << (8*SIZEOF_LONG-1)) < 0)
     ACCCHK_ASSERT((1ul << (8*SIZEOF_LONG-1)) > 0)
 
 #if defined(acc_int32e_t)
@@ -238,9 +238,9 @@
     ACCCHK_ASSERT(sizeof(ACC_INT32E_C(0)) == SIZEOF_ACC_INT32E_T)
     ACCCHK_ASSERT(sizeof(ACC_UINT32E_C(0)) == SIZEOF_ACC_INT32E_T)
 #endif
-    ACCCHK_ASSERT((ACC_INT32E_C(1)  << (8*SIZEOF_ACC_INT32E_T-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT32E_C(1)  << (8*SIZEOF_ACC_INT32E_T-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT32E_C(1) << (8*SIZEOF_ACC_INT32E_T-1)) > 0)
-    ACCCHK_ASSERT((ACC_INT32E_C(1)  << (int)(8*sizeof(ACC_INT32E_C(1))-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT32E_C(1)  << (int)(8*sizeof(ACC_INT32E_C(1))-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT32E_C(1) << (int)(8*sizeof(ACC_UINT32E_C(1))-1)) > 0)
     ACCCHK_ASSERT(ACC_INT32E_C(2147483647)      > 0)
     ACCCHK_ASSERT(ACC_INT32E_C(-2147483647) -1  < 0)
@@ -274,9 +274,9 @@
     ACCCHK_ASSERT(sizeof(ACC_INT32L_C(0)) == SIZEOF_ACC_INT32L_T)
     ACCCHK_ASSERT(sizeof(ACC_UINT32L_C(0)) == SIZEOF_ACC_INT32L_T)
 #endif
-    ACCCHK_ASSERT((ACC_INT32L_C(1)  << (8*SIZEOF_ACC_INT32L_T-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT32L_C(1)  << (8*SIZEOF_ACC_INT32L_T-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT32L_C(1) << (8*SIZEOF_ACC_INT32L_T-1)) > 0)
-    ACCCHK_ASSERT((ACC_INT32L_C(1)  << (int)(8*sizeof(ACC_INT32L_C(1))-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT32L_C(1)  << (int)(8*sizeof(ACC_INT32L_C(1))-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT32L_C(1) << (int)(8*sizeof(ACC_UINT32L_C(1))-1)) > 0)
     ACCCHK_ASSERT(ACC_INT32L_C(2147483647)      > 0)
     ACCCHK_ASSERT(ACC_INT32L_C(-2147483647) -1  < 0)
@@ -312,9 +312,9 @@
     ACCCHK_ASSERT(sizeof(ACC_INT32F_C(0)) == SIZEOF_ACC_INT32F_T)
     ACCCHK_ASSERT(sizeof(ACC_UINT32F_C(0)) == SIZEOF_ACC_INT32F_T)
 #endif
-    ACCCHK_ASSERT((ACC_INT32F_C(1)  << (8*SIZEOF_ACC_INT32F_T-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT32F_C(1)  << (8*SIZEOF_ACC_INT32F_T-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT32F_C(1) << (8*SIZEOF_ACC_INT32F_T-1)) > 0)
-    ACCCHK_ASSERT((ACC_INT32F_C(1)  << (int)(8*sizeof(ACC_INT32F_C(1))-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT32F_C(1)  << (int)(8*sizeof(ACC_INT32F_C(1))-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT32F_C(1) << (int)(8*sizeof(ACC_UINT32F_C(1))-1)) > 0)
     ACCCHK_ASSERT(ACC_INT32F_C(2147483647)      > 0)
     ACCCHK_ASSERT(ACC_INT32F_C(-2147483647) -1  < 0)
@@ -352,7 +352,7 @@
     ACCCHK_ASSERT(sizeof(ACC_UINT64L_C(0)) == SIZEOF_ACC_INT64L_T)
 #endif
 #endif /* ACCCHK_CONFIG_PEDANTIC */
-    ACCCHK_ASSERT((ACC_INT64L_C(1)  << (8*SIZEOF_ACC_INT64L_T-1)) < 0)
+    //ACCCHK_ASSERT((ACC_INT64L_C(1)  << (8*SIZEOF_ACC_INT64L_T-1)) < 0)
     ACCCHK_ASSERT((ACC_UINT64L_C(1) << (8*SIZEOF_ACC_INT64L_T-1)) > 0)
 #if (ACC_CC_GNUC && (ACC_CC_GNUC < 0x020600ul))
     /* avoid pedantic warning */
@@ -411,6 +411,10 @@
     ACCCHK_ASSERT(sizeof(size_t) == 4)
     ACCCHK_ASSERT(sizeof(ptrdiff_t) == 4)
     ACCCHK_ASSERT(sizeof(acc_intptr_t) == sizeof(void *))
+#elif (ACC_ARCH_AMD64 || ACC_ARCH_IA64) && defined(__ILP32__)
+    ACCCHK_ASSERT(sizeof(size_t) == 4)
+    ACCCHK_ASSERT(sizeof(ptrdiff_t) == 4)
+    ACCCHK_ASSERT(sizeof(acc_intptr_t) == sizeof(void *))
 #elif (ACC_ARCH_AMD64 || ACC_ARCH_IA64)
     ACCCHK_ASSERT(sizeof(size_t) == 8)
     ACCCHK_ASSERT(sizeof(ptrdiff_t) == 8)
@@ -445,7 +449,7 @@
     /* NDP C is broken */
 #elif !defined(ACC_BROKEN_INTEGRAL_PROMOTION) && (SIZEOF_INT > 1)
     /* check that the compiler correctly promotes integrals */
-    ACCCHK_ASSERT( (((unsigned char)128) << (int)(8*sizeof(int)-8)) < 0)
+    //ACCCHK_ASSERT( (((unsigned char)128) << (int)(8*sizeof(int)-8)) < 0)
 #endif
 
 
