@@ -53,16 +53,22 @@
 #  define ucl_swd_t                     ucl_nrv2b_swd_t
 #  define ucl_nrv_99_compress           ucl_nrv2b_99_compress
 #  define M2_MAX_OFFSET                 0xd00
+#  define M3_MAX_OFFSET                 UCL_UINT32_C(0x1fd00)
+#  define M4_MAX_OFFSET                 UCL_UINT32_C(0x1ffd00)
 #elif defined(NRV2D)
 #  define UCL_COMPRESS_T                ucl_nrv2d_t
 #  define ucl_swd_t                     ucl_nrv2d_swd_t
 #  define ucl_nrv_99_compress           ucl_nrv2d_99_compress
 #  define M2_MAX_OFFSET                 0x500
+#  define M3_MAX_OFFSET                 UCL_UINT32_C(0x55480)
+#  define M4_MAX_OFFSET                 UCL_UINT32_C(0x1555480)
 #elif defined(NRV2E)
 #  define UCL_COMPRESS_T                ucl_nrv2e_t
 #  define ucl_swd_t                     ucl_nrv2e_swd_t
 #  define ucl_nrv_99_compress           ucl_nrv2e_99_compress
 #  define M2_MAX_OFFSET                 0x500
+#  define M3_MAX_OFFSET                 UCL_UINT32_C(0x55480)
+#  define M4_MAX_OFFSET                 UCL_UINT32_C(0x1555480)
 #else
 #  error
 #endif
@@ -241,6 +247,12 @@ len_of_coded_match(UCL_COMPRESS_T *c, ucl_uint m_len, ucl_uint m_off)
 {
     int b;
     if (m_len < 2 || (m_len == 2 && (m_off > M2_MAX_OFFSET))
+#if (M3_MAX_OFFSET <= SWD_N)
+        || (m_len == 3 && m_off > M3_MAX_OFFSET && m_off != c->last_m_off)
+#endif
+#if (M4_MAX_OFFSET <= SWD_N)
+        || (m_len == 4 && m_off > M4_MAX_OFFSET && m_off != c->last_m_off)
+#endif
         || m_off > c->conf.max_offset)
         return -1;
     assert(m_off > 0);
@@ -495,6 +507,12 @@ ucl_nrv_99_compress        ( const ucl_bytep in, ucl_uint in_len,
         assert(s->b_char == *(c->bp));
 
         if (m_len < 2 || (m_len == 2 && (m_off > M2_MAX_OFFSET))
+#if (M3_MAX_OFFSET <= SWD_N)
+            || (m_len == 3 && m_off > M3_MAX_OFFSET && m_off != c->last_m_off)
+#endif
+#if (M4_MAX_OFFSET <= SWD_N)
+            || (m_len == 4 && m_off > M4_MAX_OFFSET && m_off != c->last_m_off)
+#endif
             || m_off > c->conf.max_offset)
         {
             /* a literal */
